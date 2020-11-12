@@ -1,0 +1,56 @@
+version: "3"
+
+services:
+  redis:
+    image: redis:4.0.9-alpine
+    ports:
+      - "6379:6379"
+
+  nsqlookupd:
+    image: nsqio/nsq:v0.3.8
+    command: /nsqlookupd
+    ports:
+      - "4160:4160"
+      - "4161:4161"
+
+  nsqd:
+    image: nsqio/nsq:v0.3.8
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160
+    links:
+      - nsqlookupd
+    ports:
+      - "4150:4150"
+      - "4151:4151"
+
+  nsqadmin:
+    image: nsqio/nsq:v0.3.8
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+    links:
+      - nsqlookupd
+      - nsqd
+    ports:
+      - "4171:4171"
+
+  gateway:
+    image: gateway:0.1.0
+    links:
+      - nsqd
+      - zombie-driver
+    ports:
+      - "4000:4000"
+
+  driver-location:
+    image: driver_location:0.1.0
+    links:
+      - nsqlookupd
+      - redis
+    ports:
+      - "4001:4001"
+
+  zombie-driver:
+    image: zombie_driver:0.1.0
+    links:
+      - driver-location
+      - redis
+    ports:
+      - "4002:4002"

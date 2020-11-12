@@ -1,0 +1,14 @@
+urls:
+  -
+    path: "/cab/:id/locations"
+    method: "POST"
+    nsq:
+      topic: "locations"
+  -
+    path: "/cab/:id"
+    method: "GET"
+    http:
+      host: "cab-driver"
+  -
+    path: "/cab/:id"
+    method: "DELETE"

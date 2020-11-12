@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "Format the code..."
+mix format
+mix format --check-formatted
+echo "Done.\n"
+
+echo "Starting static code analysis..."
+mix credo list --format=oneline --strict
+echo "Done.\n"

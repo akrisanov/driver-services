@@ -1,0 +1,14 @@
+/.git
+/.github
+.gitignore
+
+/_build
+/.elixir_ls
+/deps
+/test
+
+.credo
+coveralls.json
+ecl_Crash.dump
+Dockerfile
+README*

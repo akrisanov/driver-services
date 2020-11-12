@@ -1,0 +1,14 @@
+{
+  "coverage_options": {
+    "output_dir": "coverage/",
+    "treat_no_relevant_lines_as_covered": true,
+    "minimum_coverage": 85
+  },
+  "terminal_options": {
+    "file_column_width": 100
+  },
+  "skip_files": [
+    "config",
+    "test"
+  ]
+}
